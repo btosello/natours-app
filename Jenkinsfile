@@ -21,7 +21,7 @@ pipeline {
         stage('git clone') {
             steps{
                 sh(script: """
-                    git clone https://github.com/cristian707/tours.git
+                    git clone https://github.com/borjas-prodolliet/natours-app.git
                 """, returnStdout: true) 
             }
         }
@@ -31,17 +31,16 @@ pipeline {
                 sh script: '''
                 #!/bin/bash
                 cd $WORKSPACE/natours-app
-                docker build . --network host -t cristian707/tours:${BUILD_NUMBER}
+                docker build . --network host -t borjasprodolliet/natours-app:${BUILD_NUMBER}
                 '''
             }
         }
 
         stage('docker push') {
             steps{
-                sh(script: '''
-                #!/bin/bash
-                    docker push cristian707/tours:${BUILD_NUMBER}
-                    ''')
+                sh(script: """
+                    docker push borjasprodolliet/natours-app:${BUILD_NUMBER}
+                """)
             }
         }
 
